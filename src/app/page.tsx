@@ -6,6 +6,19 @@ const APIURL = '/api/wordle-words'
 
 export default function Home() {
   const [solution, setSolution] = useState('')
+  const [guess, setGesses] = useState(Array(6).fill(null))
+  const [currentGuess, setCurretGuess] = useState('')
+
+  useEffect(() => {
+    const handleType = (event: any) => {
+      setCurretGuess(currentGuess + event.key)
+    }
+
+    window.addEventListener('keydown', handleType)
+
+    return () => window.removeEventListener('keydown', handleType)
+  }, [currentGuess])
+
 
   useEffect(() => {
     const fetchWord = async () => {
